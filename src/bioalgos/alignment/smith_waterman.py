@@ -1,23 +1,23 @@
 from .utils import score_pair, check_alignment_score, compute_alignment_stats
 
-def needleman_wunsch(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
-    # Initialize the scoring and traceback matrices
+
+def smith_waterman(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
+
     n = len(seq1)
     m = len(seq2)
 
     score_matrix = [[0] * (m + 1) for _ in range(n + 1)]
     traceback_matrix = [[None] * (m + 1) for _ in range(n + 1)]
 
-    # Initialize first row and column with gap penalties
-    for i in range(1, n + 1):
-        score_matrix[i][0] = -gap_cost * i
-        traceback_matrix[i][0] = "up"
+    max_score = 0
+    max_position = (0, 0)
 
-    for j in range(1, m + 1):
-        score_matrix[0][j] = -gap_cost * j
-        traceback_matrix[0][j] = "left"
+    # Initialize first row and column
+    for i in range(n + 1):
+        traceback_matrix[i][0] = "done"
 
-    traceback_matrix[0][0] = "done"
+    for j in range(m + 1):
+        traceback_matrix[0][j] = "done"
 
     # Fill the scoring matrix
     for i in range(1, n + 1):
@@ -30,23 +30,29 @@ def needleman_wunsch(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
             up_score = score_matrix[i - 1][j] - gap_cost
             left_score = score_matrix[i][j - 1] - gap_cost
 
-            best_score = max(diagonal_score, up_score, left_score)
+            best_score = max(0, diagonal_score, up_score, left_score)
             score_matrix[i][j] = best_score
 
-            if best_score == diagonal_score:
+            if best_score == 0:
+                traceback_matrix[i][j] = "done"
+            elif best_score == diagonal_score:
                 traceback_matrix[i][j] = "diagonal"
             elif best_score == up_score:
                 traceback_matrix[i][j] = "up"
             else:
                 traceback_matrix[i][j] = "left"
 
+            if best_score > max_score:
+                max_score = best_score
+                max_position = (i, j)
+
     # Traceback
     aligned_seq1 = []
     aligned_seq2 = []
 
-    i, j = n, m
+    i, j = max_position
 
-    while i > 0 or j > 0:
+    while i > 0 and j > 0 and traceback_matrix[i][j] != "done":
 
         direction = traceback_matrix[i][j]
 
@@ -78,4 +84,4 @@ def needleman_wunsch(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
 
     stats = compute_alignment_stats(aligned_seq1, aligned_seq2)
 
-    return aligned_seq1, aligned_seq2, score_matrix[n][m], score_matrix, alignment_score, stats
+    return aligned_seq1, aligned_seq2, max_score, score_matrix, alignment_score, stats

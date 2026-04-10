@@ -8,7 +8,7 @@ Implemented algorithms include global, local and affine-gap alignments with a sh
 
 ---
 
-# Implemented Algorithms
+## Implemented Algorithms
 
 ### Needleman–Wunsch
 Global sequence alignment with linear gap penalties.
@@ -27,7 +27,7 @@ Variants implemented:
 
 ---
 
-# Installation
+## Installation
 
 Clone the repository
 ```bash
@@ -43,7 +43,7 @@ PYTHONPATH=src python3 -m bioalgos.cli GATTACA GCATGCU --method nw
 
 ---
 
-# Usage
+## Usage
 
 Example:
 
@@ -80,7 +80,7 @@ gotoh-freeshift
 
 ---
 
-# Benchmark
+## Benchmark
 
 Run the built-in benchmark:
 
@@ -104,7 +104,7 @@ gotoh-freeshift    1        1        0.05
 
 ---
 
-# Project Structure
+## Project Structure
 
 ```
 bioinformatics-algorithms
@@ -133,7 +133,7 @@ bioinformatics-algorithms
 
 ---
 
-# Future Work
+## Future Work
 
 Planned extensions:
 	•	substitution matrices (BLOSUM / PAM)

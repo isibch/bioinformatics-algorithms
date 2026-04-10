@@ -1,7 +1,6 @@
 from .utils import score_pair, check_alignment_score, compute_alignment_stats
 
 def needleman_wunsch(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
-    
     # Initialize the scoring and traceback matrices
     n = len(seq1)
     m = len(seq2)

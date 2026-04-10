@@ -1,7 +1,6 @@
 from .needleman_wunsch import needleman_wunsch
 from .smith_waterman import smith_waterman
 
-
 def align(seq1, seq2, method="nw", match_score=1, mismatch_score=-1, gap_cost=1):
     if method in {"needleman-wunsch", "nw"}:
         return needleman_wunsch(

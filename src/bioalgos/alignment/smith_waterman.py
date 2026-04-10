@@ -2,24 +2,26 @@ from .utils import score_pair, check_alignment_score, compute_alignment_stats
 
 
 def smith_waterman(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
-
+    # Initialize the scoring and traceback matrices
     n = len(seq1)
     m = len(seq2)
 
+    # DP matrix storing alignment scores
     score_matrix = [[0] * (m + 1) for _ in range(n + 1)]
+    # Traceback matrix storing the direction of the optimal move
     traceback_matrix = [[None] * (m + 1) for _ in range(n + 1)]
 
     max_score = 0
     max_position = (0, 0)
 
-    # Initialize first row and column
+    # Initialize first row and column remain zero (local alignment can restart)
     for i in range(n + 1):
         traceback_matrix[i][0] = "done"
 
     for j in range(m + 1):
         traceback_matrix[0][j] = "done"
 
-    # Fill the scoring matrix
+    # Fill the DP matrix
     for i in range(1, n + 1):
         for j in range(1, m + 1):
 
@@ -42,11 +44,12 @@ def smith_waterman(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
             else:
                 traceback_matrix[i][j] = "left"
 
+            # Track best local alignment endpoint
             if best_score > max_score:
                 max_score = best_score
                 max_position = (i, j)
 
-    # Traceback
+    # Traceback starting from the highest scoring cell to reconstruct local alignment
     aligned_seq1 = []
     aligned_seq2 = []
 
@@ -72,6 +75,7 @@ def smith_waterman(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
             aligned_seq2.append(seq2[j - 1])
             j -= 1
 
+    # Reverse because traceback builds alignment backwards
     aligned_seq1.reverse()
     aligned_seq2.reverse()
 

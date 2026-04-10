@@ -1,11 +1,14 @@
 from .utils import score_pair, check_alignment_score, compute_alignment_stats
 
 def needleman_wunsch(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
+    
     # Initialize the scoring and traceback matrices
     n = len(seq1)
     m = len(seq2)
 
+    # DP matrix storing alignment scores
     score_matrix = [[0] * (m + 1) for _ in range(n + 1)]
+    # Traceback matrix storing the direction of the optimal move
     traceback_matrix = [[None] * (m + 1) for _ in range(n + 1)]
 
     # Initialize first row and column with gap penalties
@@ -19,7 +22,7 @@ def needleman_wunsch(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
 
     traceback_matrix[0][0] = "done"
 
-    # Fill the scoring matrix
+    # Fill the DP matrix
     for i in range(1, n + 1):
         for j in range(1, m + 1):
 
@@ -40,7 +43,7 @@ def needleman_wunsch(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
             else:
                 traceback_matrix[i][j] = "left"
 
-    # Traceback
+    # Traceback from bottom-right to reconstruct global alignment
     aligned_seq1 = []
     aligned_seq2 = []
 
@@ -66,6 +69,7 @@ def needleman_wunsch(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
             aligned_seq2.append(seq2[j - 1])
             j -= 1
 
+    # Reverse because traceback builds alignment backwards
     aligned_seq1.reverse()
     aligned_seq2.reverse()
 

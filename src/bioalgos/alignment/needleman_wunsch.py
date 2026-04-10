@@ -4,6 +4,7 @@ def needleman_wunsch(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
             return match_score
         return mismatch_score
 
+    # Function to calculate the score of the aligned sequences
     def check_score(aligned_seq1, aligned_seq2):
         total_score = 0
         
@@ -15,6 +16,7 @@ def needleman_wunsch(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
             
         return total_score
 
+    # Function to calculate alignment statistics
     def alignment_stats(aligned_seq1, aligned_seq2):
         matches = 0
         mismatches = 0
@@ -126,6 +128,7 @@ def needleman_wunsch(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
 
     return aligned_seq1, aligned_seq2, score_matrix[n][m], score_matrix, alignment_score, stats
 
+# Utility function to print the score matrix in a readable format
 def print_score_matrix(seq1, seq2, matrix):
 
     header = [" "] + [" "] + list(seq2)

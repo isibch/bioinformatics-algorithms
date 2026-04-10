@@ -15,7 +15,7 @@ def gotoh_global(seq1, seq2, match_score=1, mismatch_score=-1, gap_open=-5, gap_
     # Iy -> alignment ends with a gap in seq1 (horizontal move)
     #
     # Using separate matrices allows us to distinguish between opening a gap and extending an existing gap.
-    M = [[0] * (m + 1) for _ in range(n + 1)]
+    M = [[neg_inf] * (m + 1) for _ in range(n + 1)]
     Ix = [[neg_inf] * (m + 1) for _ in range(n + 1)]
     Iy = [[neg_inf] * (m + 1) for _ in range(n + 1)]
 
@@ -101,6 +101,19 @@ def gotoh_global(seq1, seq2, match_score=1, mismatch_score=-1, gap_open=-5, gap_
 
     while i > 0 or j > 0:
 
+        # Handle matrix borders explicitly
+        if i == 0:
+            aligned_seq1.append("-")
+            aligned_seq2.append(seq2[j - 1])
+            j -= 1
+            continue
+
+        if j == 0:
+            aligned_seq1.append(seq1[i - 1])
+            aligned_seq2.append("-")
+            i -= 1
+            continue
+
         if state == "M":
             prev_state = tb_M[i][j]
 
@@ -132,7 +145,7 @@ def gotoh_global(seq1, seq2, match_score=1, mismatch_score=-1, gap_open=-5, gap_
         else:
             break
 
-    # Reverse because traceback builds alignment backwards
+   # Reverse because traceback builds alignment backwards
     aligned_seq1.reverse()
     aligned_seq2.reverse()
 
@@ -146,9 +159,23 @@ def gotoh_global(seq1, seq2, match_score=1, mismatch_score=-1, gap_open=-5, gap_
         match_score,
         mismatch_score,
         gap_open,
-        gap_extend
+        gap_extend,
     )
 
     stats = compute_alignment_stats(aligned_seq1, aligned_seq2)
 
-    return aligned_seq1, aligned_seq2, final_score, alignment_score, M, Ix, Iy, stats
+    return (
+        aligned_seq1,
+        aligned_seq2,
+        final_score,
+        alignment_score,
+        {
+            "M": M,
+            "Ix": Ix,
+            "Iy": Iy,
+            "tb_M": tb_M,
+            "tb_Ix": tb_Ix,
+            "tb_Iy": tb_Iy,
+        },
+        stats,
+    )

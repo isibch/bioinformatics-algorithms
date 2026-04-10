@@ -166,4 +166,18 @@ def gotoh_local(seq1, seq2, match_score=1, mismatch_score=-1, gap_open=-5, gap_e
 
     stats = compute_alignment_stats(aligned_seq1, aligned_seq2)
 
-    return aligned_seq1, aligned_seq2, max_score, alignment_score, M, Ix, Iy, stats
+    return (
+        aligned_seq1,
+        aligned_seq2,
+        max_score,
+        alignment_score,
+        {
+            "M": M,
+            "Ix": Ix,
+            "Iy": Iy,
+            "tb_M": tb_M,
+            "tb_Ix": tb_Ix,
+            "tb_Iy": tb_Iy,
+        },
+        stats,
+    )

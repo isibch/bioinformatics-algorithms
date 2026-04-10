@@ -87,4 +87,14 @@ def smith_waterman(seq1, seq2, match_score=1, mismatch_score=-1, gap_cost=1):
 
     stats = compute_alignment_stats(aligned_seq1, aligned_seq2)
 
-    return aligned_seq1, aligned_seq2, max_score, score_matrix, alignment_score, stats
+    return (
+        aligned_seq1,
+        aligned_seq2,
+        max_score,
+        alignment_score,
+        {
+            "score_matrix": score_matrix,
+            "traceback_matrix": traceback_matrix,
+        },
+        stats,
+    )

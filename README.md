@@ -132,6 +132,38 @@ bioinformatics-algorithms
 ```
 
 ---
+## Testing
+
+The project includes a small test suite using **pytest** to verify the correctness of the implemented alignment algorithms.
+
+Run the tests from the project root:
+
+```bash
+PYTHONPATH=src pytest -v
+```
+
+Example output:
+
+```
+============================= test session starts =============================
+collected 5 items
+
+tests/test_gotoh.py::test_gotoh_global PASSED
+tests/test_gotoh.py::test_gotoh_local PASSED
+tests/test_gotoh.py::test_gotoh_freeshift PASSED
+tests/test_needleman_wunsch.py::test_nw_simple_match PASSED
+tests/test_smith_waterman.py::test_sw_local_alignment PASSED
+
+============================== 5 passed in 0.03s ==============================
+```
+The tests verify:  
+
+    - correct alignment reconstruction  
+    - consistency between DP score and recomputed alignment score  
+    - basic cases (match, mismatch, gaps)  
+    - correct behaviour of global, local and free-shift alignments  
+
+---
 
 ## Future Work
 

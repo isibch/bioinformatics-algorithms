@@ -136,9 +136,9 @@ bioinformatics-algorithms
 ## Future Work
 
 Planned extensions:
-	•	substitution matrices (BLOSUM / PAM)
-	•	FASTA file support
-	•	multiple sequence alignment
-	•	k-mer indexing
-	•	BLAST-like heuristic search
-	•	phylogenetic tree algorithms (UPGMA / Neighbor Joining)
+	•	substitution matrices (BLOSUM / PAM)  
+	•	FASTA file support  
+	•	multiple sequence alignment  
+	•	k-mer indexing  
+	•	BLAST-like heuristic search  
+	•	phylogenetic tree algorithms (UPGMA / Neighbor Joining)  

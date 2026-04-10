@@ -14,8 +14,7 @@ def gotoh_freeshift(seq1, seq2, match_score=1, mismatch_score=-1, gap_open=-5, g
     # Ix -> alignment ends with a gap in seq2 (vertical move)
     # Iy -> alignment ends with a gap in seq1 (horizontal move)
     #
-    # Using separate matrices allows us to distinguish between
-    # opening a gap and extending an existing gap.
+    # Using separate matrices allows us to distinguish between opening a gap and extending an existing gap.
     M = [[0] * (m + 1) for _ in range(n + 1)]
     Ix = [[neg_inf] * (m + 1) for _ in range(n + 1)]
     Iy = [[neg_inf] * (m + 1) for _ in range(n + 1)]
@@ -25,8 +24,7 @@ def gotoh_freeshift(seq1, seq2, match_score=1, mismatch_score=-1, gap_open=-5, g
     tb_Ix = [[None] * (m + 1) for _ in range(n + 1)]
     tb_Iy = [[None] * (m + 1) for _ in range(n + 1)]
 
-    # First row and column are initialized with 0
-    # because leading gaps are free in freeshift alignment.
+    # First row and column are initialized with 0 because leading gaps are free in freeshift alignment.
     for i in range(n + 1):
         M[i][0] = 0
         tb_M[i][0] = "done"

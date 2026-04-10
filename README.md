@@ -30,12 +30,16 @@ Variants implemented:
 # Installation
 
 Clone the repository
+```bash
 git clone https://github.com/yourusername/bioinformatics-algorithms.git
 cd bioinformatics-algorithms
+```
 
 Run the CLI from the project root:
 
+```bash
 PYTHONPATH=src python3 -m bioalgos.cli GATTACA GCATGCU --method nw
+```
 
 ---
 
@@ -43,10 +47,12 @@ PYTHONPATH=src python3 -m bioalgos.cli GATTACA GCATGCU --method nw
 
 Example:
 
+```bash
 PYTHONPATH=src python3 -m bioalgos.cli GATTACA GCATGCU --method nw
+```
 
 Example Output:
-
+```
 Method: nw
 Score: 0
 Checked score: 0
@@ -61,14 +67,16 @@ Stats:
   gaps: 2
   alignment_length: 8
   identity: 0.5
+```
 
 Supported methods:
-
+```
 nw
 sw
 gotoh-global
 gotoh-local
 gotoh-freeshift
+```
 
 ---
 
@@ -76,10 +84,12 @@ gotoh-freeshift
 
 Run the built-in benchmark:
 
+```bash
 PYTHONPATH=src python3 scripts/benchmark_alignment.py
-
+```
 Example Outout:
 
+```
 Benchmarking alignment methods
 
 Sequences: GATTACA vs GCATGCU
@@ -90,11 +100,13 @@ sw                 2        2        0.02
 gotoh-global       -1       -1       0.05
 gotoh-local        2        2        0.05
 gotoh-freeshift    1        1        0.05
+```
 
 ---
 
 # Project Structure
 
+```
 bioinformatics-algorithms
 │
 ├── src
@@ -117,6 +129,7 @@ bioinformatics-algorithms
 │
 ├── README.md
 └── .gitignore
+```
 
 ---
 

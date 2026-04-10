@@ -27,7 +27,7 @@ Variants implemented:
 
 ---
 
-## Installation
+## Installatio
 
 Clone the repository
 ```bash
